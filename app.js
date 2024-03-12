@@ -7,7 +7,7 @@ const fileRouter = require('./routes/compilation.js')
 
 const connection = require('./mysql.js')
 
-app.use(express.json()) // 接收前端json格式文件
+// app.use(express.json()) // 接收前端json格式文件
 app.use(cors()) // cors中间件处理跨域
 app.use(bodyParser.json({ limit: '500mb' }));
 app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
