@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const cors = require('cors')
 const fileRouter = require('./routes/compilation.js')
+const imageRouter = require('./routes/image.js')
 
 const connection = require('./mysql.js')
 
@@ -12,6 +13,7 @@ app.use(cors()) // cors中间件处理跨域
 app.use(bodyParser.json({ limit: '500mb' }));
 app.use(bodyParser.urlencoded({ limit: '500mb', extended: true }));
 app.use(router.use('/compilation', fileRouter))
+app.use(router.use('/image', imageRouter))
 
 connection.connect((err) => {
   if (err) {

@@ -97,4 +97,42 @@ fileRouter.delete('/delete', (req, res) => {
   })
 })
 
+fileRouter.get('/detail', (req, res) => {
+  const id = Number(req.query.id)
+  if (!id) {
+    res.json({
+      code: 500,
+      message: 'id不能为空'
+    })
+  } else {
+    const sql = 'SELECT * FROM complation_table WHERE id = ?'
+    connection.query(sql, [id], (err, result) => {
+      if (err) {
+        res.json({
+          code: 500,
+          message: err
+        })
+      } else {
+        connection.query('SELECT COUNT(*) as total FROM complation_table WHERE id = ?', [id], (err2, result2) => {
+          if (err2) {
+            res.json({
+              code: 500,
+              message: err2
+            })
+          } else {
+            res.json({
+              code: 200,
+              data: {
+                ...result[0],
+                total: result2[0].total
+              },
+              message: '查询成功',
+            })
+          }
+        })
+      }
+    })
+  }
+})
+
 module.exports = fileRouter
