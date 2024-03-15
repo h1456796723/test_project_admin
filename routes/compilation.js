@@ -34,7 +34,7 @@ fileRouter.get('/get', (req, res) => {
   const currentPage = Number(req.query.currentPage) || 1
   const pageSize = Number(req.query.pageSize) || 5
   const keywords = req.query.keywords.toString() || ''
-  connection.query('SELECT * FROM complation_table WHERE name LIKE ? LIMIT ? OFFSET ?;',
+  connection.query('SELECT * FROM complation_table WHERE name LIKE ? ORDER BY sort LIMIT ? OFFSET ?;',
     [`%${keywords}%`, pageSize, (currentPage - 1) * pageSize], (err, result) => {
       if (err) {
         res.json({
